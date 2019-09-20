@@ -5,3 +5,8 @@ ToDoAPI/ToDo.Core/bin
 ToDoAPI/ToDo.Core/obj
 ToDoAPI/ToDo.Server/bin
 ToDoAPI/ToDo.Server/obj
+ToDoClient/.vs
+ToDoClient/packages
+ToDoClient/ToDo.WPFClient/bin
+ToDoClient/ToDo.WPFClient/obj
+ToDoClient/ToDo.WPFClient/packages
