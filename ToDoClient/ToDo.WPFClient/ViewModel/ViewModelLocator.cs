@@ -34,6 +34,9 @@ namespace ToDoClient.ViewModel
 
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<IDataService, TodoDataService>();
+            SimpleIoc.Default.Register<ListItemsViewModel>();
+            SimpleIoc.Default.Register<AddItemViewModel>();
+            SetupNavigation();
         }
 
         public MainViewModel Main
@@ -43,10 +46,20 @@ namespace ToDoClient.ViewModel
                 return ServiceLocator.Current.GetInstance<MainViewModel>();
             }
         }
-        
+
+        public ListItemsViewModel ListItemsViewModel => ServiceLocator.Current.GetInstance<ListItemsViewModel>();
+        public AddItemViewModel AddItemViewModel => ServiceLocator.Current.GetInstance<AddItemViewModel>();
+
         public static void Cleanup()
         {
 
+        }
+
+        private void SetupNavigation()
+        {
+            var navigationService = new NavigationService<NavigationPage>();
+            navigationService.ConfigurePages();
+            SimpleIoc.Default.Register<INavigationService<NavigationPage>>(() => navigationService);
         }
     }
 }

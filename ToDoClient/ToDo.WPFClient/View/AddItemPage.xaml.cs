@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ToDoClient
+namespace ToDoClient.View
 {
     /// <summary>
-    /// Lógica de interacción para MainWindow.xaml
+    /// Lógica de interacción para AddItemPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AddItemPage : Page
     {
-        public MainWindow()
+        public AddItemPage()
         {
             InitializeComponent();
         }

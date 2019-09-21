@@ -1,35 +1,29 @@
-using CommonServiceLocator;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Ioc;
-using System;
-using System.Collections.ObjectModel;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using TodoApi.Models;
-using ToDoClient.Model;
 
 namespace ToDoClient.ViewModel
 {
     public class MainViewModel : ViewModelBase
     {
-        private IDataService _dataService;
-        public ObservableCollection<TodoItem> TodoItemsList { get; set; }
-        public RelayCommand LoadMainPageCommand { get; set; }
+        private INavigationService<NavigationPage> _navigationService;
+        private RelayCommand _loadedCommand;
 
-        public MainViewModel()
+        public MainViewModel(INavigationService<NavigationPage> navigationService)
         {
-            ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
-            _dataService = ServiceLocator.Current.GetInstance<IDataService>();
-
-            LoadMainPageCommand =
-                new RelayCommand(async () => await LoadMainPageData());
+            _navigationService = navigationService;
         }
 
-        private async Task LoadMainPageData()
-        {          
-            TodoItemsList = new ObservableCollection<TodoItem>(await _dataService.GetDataAsync());
-            RaisePropertyChanged("TodoItemsList");
+        public RelayCommand LoadedCommand
+        {
+            get
+            {
+                return _loadedCommand
+                    ?? (_loadedCommand = new RelayCommand(
+                    () =>
+                    {
+                        _navigationService.NavigateTo(NavigationPage.ListItemsPage);
+                    }));
+            }
         }
 
     }
