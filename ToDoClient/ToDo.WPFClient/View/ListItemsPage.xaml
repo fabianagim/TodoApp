@@ -52,7 +52,23 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button x:Name="ModifyTodoItem" Height="20" Width="120" Content="Modify Item" HorizontalAlignment="Left" Margin="10" ></Button>
+            <CheckBox x:Name="ModifyTodoItem" Height="20" Width="120" HorizontalAlignment="Left" Margin="10" 
+                          Content="Completed" IsChecked="{Binding ItemComplete}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <i:InvokeCommandAction Command="{Binding UpdateItemCommand}" CommandParameter="IsChecked"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <CheckBox.Style>
+                    <Style TargetType="CheckBox">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SelectedItems.Count,ElementName=listItems}" Value="0">
+                                <Setter Property="IsEnabled" Value="False" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </CheckBox.Style>
+            </CheckBox>
         </StackPanel>
     </Grid>
 </Page>

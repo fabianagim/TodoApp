@@ -18,10 +18,14 @@ namespace ToDoClient.ViewModel
     {
         private INavigationService<NavigationPage> _navigationService;
         private IDataService _dataService;
+        private TodoItem _selectedItem;
+        public bool ItemComplete { get; set; }
+
         public ObservableCollection<TodoItem> TodoItemsList { get; set; }
         private RelayCommand _loadMainPageCommand { get; set; }
         private RelayCommand _loadAddItemsPage { get; set; }
         private RelayCommand _deleteItemCommand { get; set; }
+        private RelayCommand _updateItemCommand { get; set; }
 
         public ListItemsViewModel(INavigationService<NavigationPage> navigationService)
         {
@@ -63,15 +67,29 @@ namespace ToDoClient.ViewModel
             }
         }
 
-        private TodoItem _selectedItem;
+        public RelayCommand UpdateItemCommand
+        {
+            get
+            {
+                return _updateItemCommand
+                    ?? (_updateItemCommand = new RelayCommand(async () => await UpdateItem()));
+            }
+        }
+
         public TodoItem SelectedItem
         {
             get { return _selectedItem; }
-
+            
             set
             {
                 _selectedItem = value;
+                if (_selectedItem != null)
+                {
+                    ItemComplete = _selectedItem.IsComplete;
+                    RaisePropertyChanged("ItemComplete");
+                }
                 RaisePropertyChanged("SelectedItem");
+                
             }
         }
 
@@ -85,6 +103,16 @@ namespace ToDoClient.ViewModel
                     await _dataService.DeleteItemAsync(SelectedItem.Key.ToString());
                     await LoadItems();
                 }
+            }
+        }
+
+        private async Task UpdateItem()
+        {
+            if (SelectedItem != null)
+            {
+                SelectedItem.IsComplete = ItemComplete;
+                await _dataService.UpdateItemAsync(SelectedItem);
+                await LoadItems();
             }
         }
 

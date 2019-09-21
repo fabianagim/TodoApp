@@ -62,5 +62,22 @@ namespace ToDoClient.Model
                 }
             }
         }
+
+        public async Task UpdateItemAsync(TodoItem item)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["TodoDataServerURL"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+                StringContent payload = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(item), System.Text.Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PutAsync(String.Format(ConfigurationManager.AppSettings["UpdateItemEndpoint"], item.Key.ToString()), payload);
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new Exception(response.ReasonPhrase);
+                }
+            }
+        }
     }
 }
