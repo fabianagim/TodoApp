@@ -46,5 +46,21 @@ namespace ToDoClient.Model
                 }
             }
         }
+
+        public async Task DeleteItemAsync(string id)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["TodoDataServerURL"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage response = await client.DeleteAsync(String.Format(ConfigurationManager.AppSettings["DeleteItemEndpoint"], id));
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new Exception(response.ReasonPhrase);
+                }
+            }
+        }
     }
 }

@@ -8,5 +8,6 @@ namespace ToDoClient.Model
     {
         Task<List<TodoItem>> GetDataAsync();
         Task AddItemAsync(TodoItem item);
+        Task DeleteItemAsync(string id);
     }
 }

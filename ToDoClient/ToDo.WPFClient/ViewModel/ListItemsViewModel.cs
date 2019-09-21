@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using TodoApi.Models;
 using ToDoClient.Model;
 
@@ -20,6 +21,7 @@ namespace ToDoClient.ViewModel
         public ObservableCollection<TodoItem> TodoItemsList { get; set; }
         private RelayCommand _loadMainPageCommand { get; set; }
         private RelayCommand _loadAddItemsPage { get; set; }
+        private RelayCommand _deleteItemCommand { get; set; }
 
         public ListItemsViewModel(INavigationService<NavigationPage> navigationService)
         {
@@ -48,12 +50,43 @@ namespace ToDoClient.ViewModel
             get
             {
                 return _loadAddItemsPage
-                    ?? (_loadAddItemsPage = new RelayCommand(
-                    () =>
-                    {
-                        _navigationService.NavigateTo(NavigationPage.AddItemPage);
-                    }));
+                    ?? (_loadAddItemsPage = new RelayCommand(() => _navigationService.NavigateTo(NavigationPage.AddItemPage)));
             }
         }
+
+        public RelayCommand DeleteItemCommand
+        {
+            get
+            {
+                return _deleteItemCommand
+                    ?? (_deleteItemCommand = new RelayCommand(async () => await DeleteItem()));
+            }
+        }
+
+        private TodoItem _selectedItem;
+        public TodoItem SelectedItem
+        {
+            get { return _selectedItem; }
+
+            set
+            {
+                _selectedItem = value;
+                RaisePropertyChanged("SelectedItem");
+            }
+        }
+
+        private async Task DeleteItem()
+        {
+            if (SelectedItem != null)
+            {
+                MessageBoxResult result = MessageBox.Show("Are you sure you want to delete the item?", "ToDo List - Delete Item", MessageBoxButton.YesNo);
+                if (result == MessageBoxResult.Yes)
+                {
+                    await _dataService.DeleteItemAsync(SelectedItem.Key.ToString());
+                    await LoadItems();
+                }
+            }
+        }
+
     }
 }
