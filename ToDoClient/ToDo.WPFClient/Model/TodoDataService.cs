@@ -29,5 +29,22 @@ namespace ToDoClient.Model
             }
             return itemsList;
         }
+
+        public async Task AddItemAsync(TodoItem item)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["TodoDataServerURL"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+                StringContent payload = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(item), System.Text.Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(ConfigurationManager.AppSettings["AddItemEndpoint"], payload);
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new Exception(response.ReasonPhrase);
+                }
+            }
+        }
     }
 }

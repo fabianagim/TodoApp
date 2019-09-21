@@ -7,5 +7,6 @@ namespace ToDoClient.Model
     public interface IDataService
     {
         Task<List<TodoItem>> GetDataAsync();
+        Task AddItemAsync(TodoItem item);
     }
 }
