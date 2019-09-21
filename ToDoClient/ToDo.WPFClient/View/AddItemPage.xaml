@@ -12,8 +12,8 @@
         <Label Margin="5" FontSize="14"  Content="Add New Item"/>
         <TextBox Margin="10" FontSize="14" Text="{Binding ItemName}"/>
         <StackPanel Orientation="Horizontal">
-            <Button Margin="10" Padding="5px" FontSize="14" Command="{Binding AddNewItemCommand}" Height="40">Create</Button>
-            <Button Margin="10" Padding="5px" FontSize="14" Command="{Binding LoadListItemsPage}" Height="40" Content="Cancel"/>
+            <Button Margin="10" FontSize="12" Command="{Binding AddNewItemCommand}" Height="20" Width="120">Create</Button>
+            <Button Margin="10" FontSize="12" Command="{Binding LoadListItemsPage}" Height="20" Width="120" Content="Cancel"/>
         </StackPanel>
     </StackPanel>
 </Page>

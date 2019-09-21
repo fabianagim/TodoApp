@@ -61,8 +61,10 @@ namespace ToDoClient.ViewModel
 
         private async Task AddItem()
         {
-            TodoItem item = new TodoItem { Name = _itemName, IsComplete = false };
+            TodoItem item = new TodoItem { Name = ItemName, IsComplete = false };
             await _dataService.AddItemAsync(item);
+            ItemName = String.Empty;
+            RaisePropertyChanged("ItemName");
             _navigationService.NavigateTo(NavigationPage.ListItemsPage);
         }
     }
