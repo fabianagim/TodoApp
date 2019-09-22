@@ -11,7 +11,7 @@
       Title="ListItemsPage">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding LoadMainPageCommand}"/>
+            <i:InvokeCommandAction Command="{Binding GetItemsCommand}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Page.Resources>
