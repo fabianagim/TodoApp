@@ -20,11 +20,10 @@ namespace ToDoClient.ViewModel
         private RelayCommand _loadListItemsPage { get; set; }
         private RelayCommand _addNewItemCommand { get; set; }
 
-        public AddItemViewModel(INavigationService<NavigationPage> navigationService)
+        public AddItemViewModel(IDataService dataService, INavigationService<NavigationPage> navigationService)
         {
+            _dataService = dataService;
             _navigationService = navigationService;
-            ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
-            _dataService = ServiceLocator.Current.GetInstance<IDataService>();
         }
 
         public RelayCommand LoadListItemsPage

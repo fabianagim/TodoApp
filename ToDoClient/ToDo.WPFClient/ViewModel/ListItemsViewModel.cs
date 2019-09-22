@@ -27,11 +27,10 @@ namespace ToDoClient.ViewModel
         private RelayCommand _deleteItemCommand { get; set; }
         private RelayCommand _updateItemCommand { get; set; }
 
-        public ListItemsViewModel(INavigationService<NavigationPage> navigationService)
+        public ListItemsViewModel(IDataService dataService, INavigationService<NavigationPage> navigationService)
         {
             _navigationService = navigationService;
-            ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
-            _dataService = ServiceLocator.Current.GetInstance<IDataService>();
+            _dataService = dataService;
         }
 
         private async Task LoadItems()
