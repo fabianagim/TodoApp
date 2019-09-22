@@ -10,3 +10,6 @@ ToDoClient/packages
 ToDoClient/ToDo.WPFClient/bin
 ToDoClient/ToDo.WPFClient/obj
 ToDoClient/ToDo.WPFClient/packages
+ToDoClient/TodoUnitTests/bin
+ToDoClient/TodoUnitTests/obj
+ToDoClient/TodoUnitTests/packages

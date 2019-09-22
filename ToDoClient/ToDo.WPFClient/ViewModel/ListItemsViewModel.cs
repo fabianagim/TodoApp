@@ -19,6 +19,7 @@ namespace ToDoClient.ViewModel
         private INavigationService<NavigationPage> _navigationService;
         private IDataService _dataService;
         private TodoItem _selectedItem;
+        private readonly IMessageBox _messageBox;
         public bool ItemComplete { get; set; }
 
         public ObservableCollection<TodoItem> TodoItemsList { get; set; }
@@ -27,10 +28,11 @@ namespace ToDoClient.ViewModel
         private RelayCommand _deleteItemCommand { get; set; }
         private RelayCommand _updateItemCommand { get; set; }
 
-        public ListItemsViewModel(IDataService dataService, INavigationService<NavigationPage> navigationService)
+        public ListItemsViewModel(IDataService dataService, INavigationService<NavigationPage> navigationService, IMessageBox messageBox = null)
         {
             _navigationService = navigationService;
             _dataService = dataService;
+            _messageBox = messageBox ?? new ToDoMessageBox();
         }
 
         private async Task LoadItems()
@@ -96,7 +98,7 @@ namespace ToDoClient.ViewModel
         {
             if (SelectedItem != null)
             {
-                MessageBoxResult result = MessageBox.Show("Are you sure you want to delete the item?", "ToDo List - Delete Item", MessageBoxButton.YesNo);
+                MessageBoxResult result = _messageBox.Show("Are you sure you want to delete the item?", "ToDo List - Delete Item", MessageBoxButton.YesNo);
                 if (result == MessageBoxResult.Yes)
                 {
                     await _dataService.DeleteItemAsync(SelectedItem.Key.ToString());
