@@ -24,7 +24,7 @@ namespace TodoUnitTests.ViewModels
             var viewModel = CreateViewModel();
 
             //Act
-            viewModel.LoadMainPageCommand.Execute(null);
+            viewModel.GetItemsCommand.Execute(null);
             var ItemsList = viewModel.TodoItemsList;
 
             //Test
@@ -38,7 +38,7 @@ namespace TodoUnitTests.ViewModels
             var viewModel = CreateViewModel();
             TodoItem itemToComplete = new TodoItem { Key = Guid.NewGuid().ToString(), Name = "Item to complete", IsComplete = false };
             _mockDataService.AddItemAsync(itemToComplete);
-            viewModel.LoadMainPageCommand.Execute(null);
+            viewModel.GetItemsCommand.Execute(null);
             viewModel.SelectedItem = itemToComplete;
             viewModel.ItemComplete = true;
 
@@ -57,7 +57,7 @@ namespace TodoUnitTests.ViewModels
             var viewModel = CreateViewModel();
             TodoItem itemToComplete = new TodoItem { Key = Guid.NewGuid().ToString(), Name = "Item to complete", IsComplete = true };
             _mockDataService.AddItemAsync(itemToComplete);
-            viewModel.LoadMainPageCommand.Execute(null);
+            viewModel.GetItemsCommand.Execute(null);
             viewModel.SelectedItem = itemToComplete;
             viewModel.ItemComplete = false;
 
@@ -77,7 +77,7 @@ namespace TodoUnitTests.ViewModels
             var viewModel = CreateViewModel(messageBox: messageBoxMock);
             TodoItem itemToDelete = new TodoItem { Key = Guid.NewGuid().ToString(), Name = "Item to delete", IsComplete = false };
             _mockDataService.AddItemAsync(itemToDelete);
-            viewModel.LoadMainPageCommand.Execute(null);
+            viewModel.GetItemsCommand.Execute(null);
             viewModel.SelectedItem = itemToDelete;
 
             //Act
@@ -96,7 +96,7 @@ namespace TodoUnitTests.ViewModels
             var viewModel = CreateViewModel(messageBox: messageBoxMock);
             TodoItem itemToDelete = new TodoItem { Key = Guid.NewGuid().ToString(), Name = "Item to delete", IsComplete = false };
             _mockDataService.AddItemAsync(itemToDelete);
-            viewModel.LoadMainPageCommand.Execute(null);
+            viewModel.GetItemsCommand.Execute(null);
             viewModel.SelectedItem = itemToDelete;
 
             //Act

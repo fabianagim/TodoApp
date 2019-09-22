@@ -23,7 +23,7 @@ namespace ToDoClient.ViewModel
         public bool ItemComplete { get; set; }
 
         public ObservableCollection<TodoItem> TodoItemsList { get; set; }
-        private RelayCommand _loadMainPageCommand { get; set; }
+        private RelayCommand _getItemsCommand { get; set; }
         private RelayCommand _loadAddItemsPage { get; set; }
         private RelayCommand _deleteItemCommand { get; set; }
         private RelayCommand _updateItemCommand { get; set; }
@@ -35,18 +35,12 @@ namespace ToDoClient.ViewModel
             _messageBox = messageBox ?? new ToDoMessageBox();
         }
 
-        private async Task LoadItems()
-        {
-            TodoItemsList = new ObservableCollection<TodoItem>(await _dataService.GetDataAsync());
-            RaisePropertyChanged("TodoItemsList");
-        }
-
-        public RelayCommand LoadMainPageCommand
+        public RelayCommand GetItemsCommand
         {
             get
             {
-                return _loadMainPageCommand
-                    ?? (_loadMainPageCommand = new RelayCommand(async () => await LoadItems()));
+                return _getItemsCommand
+                    ?? (_getItemsCommand = new RelayCommand(async () => await LoadItems()));
             }
         }
 
@@ -94,6 +88,14 @@ namespace ToDoClient.ViewModel
             }
         }
 
+        #region private
+        private async Task LoadItems()
+        {
+            TodoItemsList = new ObservableCollection<TodoItem>(await _dataService.GetDataAsync());
+            RaisePropertyChanged("TodoItemsList");
+        }
+
+
         private async Task DeleteItem()
         {
             if (SelectedItem != null)
@@ -116,6 +118,6 @@ namespace ToDoClient.ViewModel
                 await LoadItems();
             }
         }
-
+        #endregion
     }
 }

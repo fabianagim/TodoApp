@@ -26,6 +26,10 @@ namespace ToDoClient.Model
                 {
                     itemsList = JsonConvert.DeserializeObject<List<TodoItem>>(await response.Content.ReadAsStringAsync());
                 }
+                else
+                {
+                    throw new Exception(response.ReasonPhrase);
+                }
             }
             return itemsList;
         }

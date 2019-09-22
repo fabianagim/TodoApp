@@ -11,6 +11,12 @@ using System.Windows.Media;
 
 namespace ToDoClient.ViewModel
 {
+    public enum NavigationPage
+    {
+        ListItemsPage,
+        AddItemPage
+    }
+
     public class NavigationService<T> : INavigationService<T>, INotifyPropertyChanged
     {
         /// <summary>
