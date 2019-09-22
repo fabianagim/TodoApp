@@ -32,8 +32,17 @@ namespace ToDoClient.ViewModel
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
+            if (ViewModelBase.IsInDesignModeStatic)
+            {
+                SimpleIoc.Default.Register<IDataService, MockDataService>();
+            }
+            else
+            {
+                SimpleIoc.Default.Register<IDataService, TodoDataService>();
+            }
+
+            SimpleIoc.Default.Register<IMessageBox, ToDoMessageBox>();
             SimpleIoc.Default.Register<MainViewModel>();
-            SimpleIoc.Default.Register<IDataService, TodoDataService>();
             SimpleIoc.Default.Register<ListItemsViewModel>();
             SimpleIoc.Default.Register<AddItemViewModel>();
             SetupNavigation();
@@ -59,6 +68,7 @@ namespace ToDoClient.ViewModel
         {
             var navigationService = new NavigationService<NavigationPage>();
             navigationService.ConfigurePages();
+            if (SimpleIoc.Default.IsRegistered<INavigationService<NavigationPage>>()) SimpleIoc.Default.Unregister<INavigationService<NavigationPage>>();
             SimpleIoc.Default.Register<INavigationService<NavigationPage>>(() => navigationService);
         }
     }

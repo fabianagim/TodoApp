@@ -15,7 +15,7 @@ namespace ToDoClient
     {
         private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
-            MessageBox.Show("An unhandled exception just occurred: " + e.Exception.Message, "LabCore - Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+            MessageBox.Show("An error has ocurred: " + e.Exception.Message, "LabCore - Error", MessageBoxButton.OK, MessageBoxImage.Warning);
             e.Handled = true;
         }
     }

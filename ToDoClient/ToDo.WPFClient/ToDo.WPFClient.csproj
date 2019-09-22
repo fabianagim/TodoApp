@@ -74,7 +74,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\IDataService.cs" />
+    <Compile Include="Model\IMessageBox.cs" />
+    <Compile Include="Model\MockDataService.cs" />
     <Compile Include="Model\TodoDataService.cs" />
+    <Compile Include="Model\ToDoMessageBox.cs" />
     <Compile Include="ViewModel\AddItemViewModel.cs" />
     <Compile Include="ViewModel\INavigationService.cs" />
     <Compile Include="ViewModel\ListItemsViewModel.cs" />
