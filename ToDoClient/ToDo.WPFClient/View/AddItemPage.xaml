@@ -9,7 +9,7 @@
       DataContext="{Binding AddItemViewModel, Source={StaticResource Locator}}"
       Title="AddItemPage">
     <StackPanel Orientation="Vertical">
-        <Label Margin="5" FontSize="14"  Content="Add New Item"/>
+        <Label Margin="5" FontSize="14"  Content="Add New Item" Background="LightBlue"/>
         <TextBox Margin="10" FontSize="14" Text="{Binding ItemName}"/>
         <StackPanel Orientation="Horizontal">
             <Button Margin="10" Height="20" Width="120" Command="{Binding AddNewItemCommand}" Content="Create"></Button>
