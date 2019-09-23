@@ -1,0 +1,15 @@
+
+ToDoAPI/.vs/TodoApi/v16
+ToDoAPI/packages
+ToDoAPI/ToDo.Core/bin
+ToDoAPI/ToDo.Core/obj
+ToDoAPI/ToDo.Server/bin
+ToDoAPI/ToDo.Server/obj
+ToDoClient/.vs
+ToDoClient/packages
+ToDoClient/ToDo.WPFClient/bin
+ToDoClient/ToDo.WPFClient/obj
+ToDoClient/ToDo.WPFClient/packages
+ToDoClient/TodoUnitTests/bin
+ToDoClient/TodoUnitTests/obj
+ToDoClient/TodoUnitTests/packages

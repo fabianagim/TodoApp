@@ -44,7 +44,8 @@ namespace TodoApi.Controllers
 				return BadRequest();
 			}
 			TodoItems.Add(item);
-			return CreatedAtRoute("GetTodo", new { id = item.Key }, item);
+            //return CreatedAtRoute("GetTodo", new { id = item.Key }, item);
+            return Ok();
 		}
 
 		[HttpPut]
@@ -66,26 +67,26 @@ namespace TodoApi.Controllers
 			return Ok();
 		}
 
-		[HttpPut]
-		[Route("{id}")]
-		public IHttpActionResult Update([FromBody] TodoItem item, string id)
-		{
-			if (item == null)
-			{
-				return BadRequest();
-			}
+		//[HttpPut]
+		//[Route("{id}")]
+		//public IHttpActionResult Update([FromBody] TodoItem item, string id)
+		//{
+		//	if (item == null)
+		//	{
+		//		return BadRequest();
+		//	}
 
-			var todo = TodoItems.Find(id);
-			if (todo == null)
-			{
-				return NotFound();
-			}
+		//	var todo = TodoItems.Find(id);
+		//	if (todo == null)
+		//	{
+		//		return NotFound();
+		//	}
 
-			item.Key = todo.Key;
+		//	item.Key = todo.Key;
 
-			TodoItems.Update(item);
-			return Ok();
-		}
+		//	TodoItems.Update(item);
+		//	return Ok();
+		//}
 
 		[HttpDelete]
 		[Route("{id}")]
